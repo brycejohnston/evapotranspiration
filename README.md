@@ -2,7 +2,7 @@
 [![Gem Version](https://badge.fury.io/rb/evapotranspiration.svg)](https://badge.fury.io/rb/evapotranspiration)
 [![Build Status](https://travis-ci.org/brycejohnston/evapotranspiration.svg?branch=master)](https://travis-ci.org/brycejohnston/evapotranspiration)
 
-Ruby library for calculating reference crop evapotranspiration (ETo), also referred to as potential evapotranspiration (PET), using the FAO-56 Penman-Monteith method.
+Ruby library for calculating reference crop evapotranspiration (ETo), also referred to as potential evapotranspiration (PET), using the FAO-56 Penman-Monteith method. This is a Ruby port of [Mark Richard's PyETo Python package](https://github.com/woodcrafty/PyETo).
 
 ## Installation
 
@@ -34,4 +34,6 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/brycej
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the [BSD 3-Clause License](http://opensource.org/licenses/BSD-3-Clause).
+
+The original PyETo Python package it is based on was released under the BSD 3-Clause License (see LICENSE-ORIGINAL.txt).
