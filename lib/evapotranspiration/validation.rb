@@ -1,9 +1,8 @@
-require "Conversion"
+require "conversion"
 
 module Evapotranspiration
   module Validation
 
-    # Internal constants
     # Latitude
     MINLAT_RADIANS = Conversion.deg_to_rad(-90.0)
     MAXLAT_RADIANS = Conversion.deg_to_rad(90.0)
