@@ -19,18 +19,18 @@ module Evapotranspiration
     #
     # Thornthwaite equation:
     #
-    #  *PET* = 1.6 (*L*/12) (*N*/30) (10*Ta* / *I*)***a*
+    #  *PET* = 1.6 (*l*/12) (*n*/30) (10*ta* / *heat_index*)***a*
     #
     # where:
     #
-    #  * *Ta* is the mean daily air temperature [deg C, if negative use 0] of the
+    #  * *ta* is the mean daily air temperature [deg C, if negative use 0] of the
     #    month being calculated
-    #  * *N* is the number of days in the month being calculated
-    #  * *L* is the mean day length [hours] of the month being calculated
-    #  * *a* = (6.75 x 10-7)*I***3 - (7.71 x 10-5)*I***2 + (1.792 x 10-2)*I* + 0.49239
-    #  * *I* is a heat index which depends on the 12 monthly mean temperatures and
-    #    is calculated as the sum of (*Tai* / 5)**1.514 for each month, where
-    #  Tai is the air temperature for each month in the year
+    #  * *n* is the number of days in the month being calculated
+    #  * *l* is the mean day length [hours] of the month being calculated
+    #  * *a* = (6.75 x 10-7)*heat_index***3 - (7.71 x 10-5)*heat_index***2 + (1.792 x 10-2)*heat_index* + 0.49239
+    #  * *heat_index* is a heat index which depends on the 12 monthly mean temperatures and
+    #    is calculated as the sum of (*tai* / 5)**1.514 for each month, where
+    #  * *tai* is the air temperature for each month in the year
     #
     # @param monthly_t [Array<Float>] Iterable containing mean daily air
     #   temperature for each month of the year (deg C)

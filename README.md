@@ -36,8 +36,14 @@ After checking out the repo, run `bin/setup` to install dependencies. Then, run 
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/AgRuby/evapotranspiration.
 
+## Acknowledgments
+
+[PyETo](https://github.com/woodcrafty/PyETo) was created by [Mark Richard](https://github.com/woodcrafty) - ported into Ruby and maintained by [Bryce Johnston](https://github.com/brycejohnston)
+
+Ruby port made possible by [Crop Quest, Inc.](http://www.cropquest.com)
+
 ## License
 
-The gem is available as open source under the terms of the [BSD 3-Clause License](http://opensource.org/licenses/BSD-3-Clause) (see LICENSE.txt).
+The gem is available as open source under the terms of the BSD 3-Clause License (see [LICENSE.txt](https://github.com/AgRuby/evapotranspiration/blob/master/LICENSE.txt)).
 
-The original PyETo Python package it is based on was released under the BSD 3-Clause License (see LICENSE-ORIGINAL.txt).
+The original PyETo Python package it is based on was released under the BSD 3-Clause License (see [LICENSE-ORIGINAL.txt](https://github.com/AgRuby/evapotranspiration/blob/master/LICENSE-ORIGINAL.txt)).
