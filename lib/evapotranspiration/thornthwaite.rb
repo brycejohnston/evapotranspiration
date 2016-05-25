@@ -1,5 +1,5 @@
-require "validation"
-require "fao"
+require 'evapotranspiration/validation'
+require 'evapotranspiration/fao'
 
 module Evapotranspiration
 
@@ -45,10 +45,10 @@ module Evapotranspiration
     #   the year (mm/month)
     def thornthwaite(monthly_t, monthly_mean_dlh, year=nil)
       if monthly_t.size != 12
-        raise ArgumentError.new("monthly_t should be length 12 but is length #{monthly_t.size}."
+        raise ArgumentError.new("monthly_t should be length 12 but is length #{monthly_t.size}.")
       end
       if monthly_mean_dlh.size != 12
-        raise ArgumentError.new("monthly_mean_dlh should be length 12 but is length #{monthly_mean_dlh.size}."
+        raise ArgumentError.new("monthly_mean_dlh should be length 12 but is length #{monthly_mean_dlh.size}.")
       end
 
       if year.nil? || !year.leap?

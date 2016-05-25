@@ -40,7 +40,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/AgRuby
 
 [PyETo](https://github.com/woodcrafty/PyETo) was created by [Mark Richard](https://github.com/woodcrafty) - ported into Ruby and maintained by [Bryce Johnston](https://github.com/brycejohnston)
 
-Ruby port made possible by [Crop Quest, Inc.](http://www.cropquest.com)
+Ruby port supported by [Crop Quest, Inc.](http://www.cropquest.com)
 
 ## License
 

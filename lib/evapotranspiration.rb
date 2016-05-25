@@ -1,5 +1,5 @@
-require "evapotranspiration/version"
-
-module Evapotranspiration
-
-end
+require 'evapotranspiration/version'
+require 'evapotranspiration/conversion'
+require 'evapotranspiration/fao'
+require 'evapotranspiration/thornthwaite'
+require 'evapotranspiration/validation'

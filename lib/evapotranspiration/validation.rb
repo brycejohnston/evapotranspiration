@@ -1,4 +1,4 @@
-require "conversion"
+require 'evapotranspiration/conversion'
 
 module Evapotranspiration
   module Validation

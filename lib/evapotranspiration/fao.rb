@@ -1,4 +1,4 @@
-require "validation"
+require 'evapotranspiration/validation'
 
 module Evapotranspiration
 
@@ -253,7 +253,7 @@ module Evapotranspiration
     # @return [Float] Reference evapotranspiration (ETo) from a hypothetical
     #   grass reference surface (mm day-1)
     def self.fao56_penman_monteith(net_rad, t, ws, svp, avp, delta_svp, psy, shf=0.0)
-      a1 = (0.408 * (net_rad - shf) * delta_svp / delta_svp + (psy * (1 + 0.34 * ws))))
+      a1 = (0.408 * (net_rad - shf) * delta_svp / delta_svp + (psy * (1 + 0.34 * ws)))
       a2 = (900 * ws / t * (svp - avp) * psy / (delta_svp + (psy * (1 + 0.34 * ws))))
       return a1 + a2
     end
