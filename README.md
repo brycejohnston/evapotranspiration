@@ -46,8 +46,6 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/AgRuby
 
 [PyETo](https://github.com/woodcrafty/PyETo) was created by [Mark Richard](https://github.com/woodcrafty) - ported into Ruby and maintained by [Bryce Johnston](https://github.com/brycejohnston)
 
-Ruby port supported by [Crop Quest, Inc.](http://www.cropquest.com)
-
 ## License
 
 The gem is available as open source under the terms of the BSD 3-Clause License (see [LICENSE.txt](https://github.com/AgRuby/evapotranspiration/blob/master/LICENSE.txt)).
