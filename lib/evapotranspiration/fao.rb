@@ -24,8 +24,8 @@ module Evapotranspiration
     # @param altitude [Float] Elevation/altitude above sea level (m)
     # @return [Float] atmospheric pressure (kPa)
     def self.atm_pressure(altitude)
-      tmp = (293.0 - (0.0065 * altitude)) / 293.0
-      return (tmp ** 5.26) * 101.3
+      tmp = (293.0 - (0.0065 * altitude.to_f)) / 293.0
+      return (tmp.to_f ** 5.26) * 101.3
     end
 
     # Estimate actual vapour pressure (*ea*) from minimum temperature.
@@ -44,7 +44,7 @@ module Evapotranspiration
     # @param tmin [Float] Daily minimum temperature (deg C)
     # @return [Float] Actual vapour pressure (kPa)
     def self.avp_from_tmin(tmin)
-      return 0.611 * Math.exp((17.27 * tmin) / (tmin + 237.3))
+      return 0.611 * Math.exp((17.27 * tmin.to_f) / (tmin.to_f + 237.3))
     end
 
     # Estimate actual vapour pressure (*ea*) from saturation vapour pressure and
@@ -60,9 +60,9 @@ module Evapotranspiration
     # @param rh_max [Float] Maximum relative humidity (%)
     # @return [Float] Actual vapour pressure (kPa)
     def self.avp_from_rhmin_rhmax(svp_tmin, svp_tmax, rh_min, rh_max)
-      tmp1 = svp_tmin * (rh_max / 100.0)
-      tmp2 = svp_tmax * (rh_min / 100.0)
-      return (tmp1 + tmp2) / 2.0
+      tmp1 = svp_tmin.to_f * (rh_max.to_f / 100.0)
+      tmp2 = svp_tmax.to_f * (rh_min.to_f / 100.0)
+      return (tmp1.to_f + tmp2.to_f) / 2.0
     end
 
     # Estimate actual vapour pressure (*ea*) from saturation vapour pressure at
@@ -75,7 +75,7 @@ module Evapotranspiration
     # @param rh_max [Float] Maximum relative humidity (%)
     # @return [Float] Actual vapour pressure (kPa)
     def self.avp_from_rhmax(svp_tmin, rh_max)
-      return svp_tmin * (rh_max / 100.0)
+      return svp_tmin.to_f * (rh_max.to_f / 100.0)
     end
 
     # Estimate actual vapour pressure (*e*a) from saturation vapour pressure at
@@ -87,9 +87,10 @@ module Evapotranspiration
     #   temperature (kPa). Can be estimated using svp_from_t()
     # @param svp_tmax [Float] Saturation vapour pressure at daily maximum
     #   temperature (kPa). Can be estimated using svp_from_t()
+    # @param rh_mean [Float] Mean relative humidity (%) (average of RH min and RH max).
     # @return [Float] Actual vapour pressure (kPa)
     def self.avp_from_rhmean(svp_tmin, svp_tmax, rh_mean)
-      return (rh_mean / 100.0) * ((svp_tmax + svp_tmin) / 2.0)
+      return (rh_mean.to_f / 100.0) * ((svp_tmax.to_f + svp_tmin.to_f) / 2.0)
     end
 
     # Estimate actual vapour pressure (*ea*) from dewpoint temperature.
@@ -105,7 +106,7 @@ module Evapotranspiration
     # @param tdew [Float] Dewpoint temperature (deg C)
     # @return [Float] Actual vapour pressure (kPa)
     def self.avp_from_tdew(tdew)
-      return 0.6108 * Math.exp((17.27 * tdew) / (tdew + 237.3))
+      return 0.6108 * Math.exp((17.27 * tdew.to_f) / (tdew.to_f + 237.3))
     end
 
     # Estimate actual vapour pressure (*ea*) from wet and dry bulb temperature.
@@ -130,7 +131,7 @@ module Evapotranspiration
     #   psy_const_of_psychrometer()
     # @return [Float] Actual vapour pressure (kPa)
     def self.avp_from_twet_tdry(twet, tdry, svp_twet, psy_const)
-      return svp_twet - (psy_const * (tdry - twet))
+      return svp_twet.to_f - (psy_const.to_f * (tdry.to_f - twet.to_f))
     end
 
     # Estimate clear sky radiation from altitude and extraterrestrial radiation.
@@ -143,7 +144,7 @@ module Evapotranspiration
     #   estimated using et_rad()
     # @return [Float] Clear sky radiation (MJ m-2 day-1)
     def self.cs_rad(altitude, et_rad)
-      return (0.00002 * altitude + 0.75) * et_rad
+      return (0.00002 * altitude.to_f + 0.75) * et_rad.to_f
     end
 
     # Estimate mean daily temperature from the daily minimum and maximum
@@ -153,7 +154,7 @@ module Evapotranspiration
     # @param tmax [Float] Maximum daily temperature (deg C)
     # @return [Float] Mean daily temperature (deg C)
     def self.daily_mean_t(tmin, tmax)
-      return (tmax + tmin) / 2.0
+      return (tmax.to_f + tmin.to_f) / 2.0
     end
 
     # Calculate daylight hours from sunset hour angle.
@@ -165,7 +166,7 @@ module Evapotranspiration
     # @return [Float] Daylight hours
     def self.daylight_hours(sha)
       Validation.check_sunset_hour_angle_rad(sha)
-      return (24.0 / Math::PI) * sha
+      return (24.0 / Math::PI) * sha.to_f
     end
 
     # Estimate the slope of the saturation vapour pressure curve at a given
@@ -178,8 +179,8 @@ module Evapotranspiration
     #   use in Penman-Monteith
     # @return [Float] Saturation vapour pressure (kPa degC-1)
     def self.delta_svp(t)
-      tmp = 4098 * (0.6108 * Math.exp((17.27 * t) / (t + 237.3)))
-      return tmp / ((t + 237.3) ** 2)
+      tmp = 4098 * (0.6108 * Math.exp((17.27 * t.to_f) / (t.to_f + 237.3)))
+      return tmp.to_f / ((t.to_f + 237.3) ** 2)
     end
 
     # Convert energy (e.g. radiation energy) in MJ m-2 day-1 to the equivalent
@@ -194,7 +195,7 @@ module Evapotranspiration
     # @param energy [Float] Energy e.g. radiation or heat flux (MJ m-2 day-1)
     # @return [Float] Equivalent evaporation (mm day-1)
     def self.energy2evap(energy)
-      return 0.408 * energy
+      return 0.408 * energy.to_f
     end
 
     # Estimate daily extraterrestrial radiation (*Ra*, 'top of the atmosphere
@@ -223,9 +224,9 @@ module Evapotranspiration
       Validation.check_sunset_hour_angle_rad(sha)
 
       tmp1 = (24.0 * 60.0) / Math::PI
-      tmp2 = sha * Math.sin(latitude) * Math.sin(sol_dec)
-      tmp3 = Math.cos(latitude) * Math.cos(sol_dec) * Math.sin(sha)
-      return tmp1 * SOLAR_CONSTANT * ird * (tmp2 + tmp3)
+      tmp2 = sha.to_f * Math.sin(latitude) * Math.sin(sol_dec.to_f)
+      tmp3 = Math.cos(latitude.to_f) * Math.cos(sol_dec.to_f) * Math.sin(sha.to_f)
+      return tmp1.to_f * SOLAR_CONSTANT * ird.to_f * (tmp2.to_f + tmp3.to_f)
     end
 
     # Estimate reference evapotranspiration (ETo) from a hypothetical
@@ -253,9 +254,9 @@ module Evapotranspiration
     # @return [Float] Reference evapotranspiration (ETo) from a hypothetical
     #   grass reference surface (mm day-1)
     def self.fao56_penman_monteith(net_rad, t, ws, svp, avp, delta_svp, psy, shf=0.0)
-      a1 = (0.408 * (net_rad - shf) * delta_svp / delta_svp + (psy * (1 + 0.34 * ws)))
-      a2 = (900 * ws / t * (svp - avp) * psy / (delta_svp + (psy * (1 + 0.34 * ws))))
-      return a1 + a2
+      a1 = (0.408 * (net_rad.to_f - shf.to_f) * delta_svp.to_f / delta_svp.to_f + (psy.to_f * (1 + 0.34 * ws.to_f)))
+      a2 = (900 * ws.to_f / t.to_f * (svp.to_f - avp.to_f) * psy.to_f / (delta_svp.to_f + (psy.to_f * (1 + 0.34 * ws.to_f))))
+      return a1.to_f + a2.to_f
     end
 
     # Estimate reference evapotranspiration over grass (ETo) using the Hargreaves
@@ -280,7 +281,7 @@ module Evapotranspiration
       # Note, multiplied by 0.408 to convert extraterrestrial radiation could
       # be given in MJ m-2 day-1 rather than as equivalent evaporation in
       # mm day-1
-      return 0.0023 * (tmean + 17.8) * (tmax - tmin) ** 0.5 * 0.408 * et_rad
+      return 0.0023 * (tmean.to_f + 17.8) * (tmax.to_f - tmin.to_f) ** 0.5 * 0.408 * et_rad.to_f
     end
 
     # Calculate the inverse relative distance between earth and sun from
@@ -292,7 +293,7 @@ module Evapotranspiration
     # @return [Float] Inverse relative distance between earth and the sun
     def self.inv_rel_dist_earth_sun(day_of_year)
       Validation.check_doy(day_of_year)
-      return 1 + (0.033 * Math.cos((2.0 * Math::PI / 365.0) * day_of_year))
+      return 1 + (0.033 * Math.cos((2.0 * Math::PI / 365.0) * day_of_year.to_f))
     end
 
     # Estimate mean saturation vapour pressure, *es* [kPa] from minimum and
@@ -308,7 +309,7 @@ module Evapotranspiration
     # @param tmax [Float] Maximum temperature (deg C)
     # @return [Float] Mean saturation vapour pressure (*es*) (kPa)
     def self.mean_svp(tmin, tmax)
-      return (svp_from_t(tmin) + svp_from_t(tmax)) / 2.0
+      return (self.svp_from_t(tmin.to_f) + self.svp_from_t(tmax.to_f)) / 2.0
     end
 
     # Estimate monthly soil heat flux (Gmonth) from the mean air temperature of
@@ -325,7 +326,7 @@ module Evapotranspiration
     #   (deg Celsius)
     # @return [Float] Monthly soil heat flux (Gmonth) (MJ m-2 day-1)
     def self.monthly_soil_heat_flux(t_month_prev, t_month_next)
-      return 0.07 * (t_month_next - t_month_prev)
+      return 0.07 * (t_month_next.to_f - t_month_prev.to_f)
     end
 
     # Estimate monthly soil heat flux (Gmonth) from the mean air temperature of
@@ -342,7 +343,7 @@ module Evapotranspiration
     #   (deg Celsius)
     # @return [Float] Monthly soil heat flux (Gmonth) (MJ m-2 day-1)
     def self.monthly_soil_heat_flux2(t_month_prev, t_month_cur)
-      return 0.14 * (t_month_cur - t_month_prev)
+      return 0.14 * (t_month_cur.to_f - t_month_prev.to_f)
     end
 
     # Calculate net incoming solar (or shortwave) radiation from gross
@@ -366,7 +367,7 @@ module Evapotranspiration
     #   about 0.20-0.25 (Allen et al, 1998)
     # @return [Float] Net incoming solar (or shortwave) radiation (MJ m-2 day-1)
     def self.net_in_sol_rad(sol_rad, albedo=0.23)
-      return (1 - albedo) * sol_rad
+      return (1 - albedo.to_f) * sol_rad.to_f
     end
 
     # Estimate net outgoing longwave radiation.
@@ -394,10 +395,10 @@ module Evapotranspiration
     #   functions with names beginning with 'avp_from'
     # @return [Float] Net outgoing longwave radiation (MJ m-2 day-1)
     def self.net_out_lw_rad(tmin, tmax, sol_rad, cs_rad, avp)
-      tmp1 = (STEFAN_BOLTZMANN_CONSTANT * (((tmax ** 4) + (tmin ** 4)) / 2))
-      tmp2 = (0.34 - (0.14 * Math.sqrt(avp)))
-      tmp3 = 1.35 * (sol_rad / cs_rad) - 0.35
-      return tmp1 * tmp2 * tmp3
+      tmp1 = (STEFAN_BOLTZMANN_CONSTANT * (((tmax.to_f ** 4) + (tmin.to_f ** 4)) / 2))
+      tmp2 = (0.34 - (0.14 * Math.sqrt(avp.to_f)))
+      tmp3 = 1.35 * (sol_rad.to_f / cs_rad.to_f) - 0.35
+      return tmp1.to_f * tmp2.to_f * tmp3.to_f
     end
 
     # Calculate daily net radiation at the crop surface, assuming a grass
@@ -415,7 +416,7 @@ module Evapotranspiration
     #   Can be estimated using net_out_lw_rad()
     # @return [Float] Daily net radiation (MJ m-2 day-1)
     def self.net_rad(ni_sw_rad, no_lw_rad)
-      return ni_sw_rad - no_lw_rad
+      return ni_sw_rad.to_f - no_lw_rad.to_f
     end
 
     # Calculate the psychrometric constant.
@@ -429,7 +430,7 @@ module Evapotranspiration
     #   using atm_pressure()
     # @return [Float] Psychrometric constant (kPa degC-1)
     def self.psy_const(atmos_pres)
-      return 0.000665 * atmos_pres
+      return 0.000665 * atmos_pres.to_f
     end
 
     # Calculate the psychrometric constant for different types of
@@ -460,7 +461,7 @@ module Evapotranspiration
         raise ArgumentError.new("psychrometer should be in range 1 to 3: #{psychrometer}")
       end
 
-      return psy_coeff * atmos_pres
+      return psy_coeff.to_f * atmos_pres.to_f
     end
 
     # Calculate relative humidity as the ratio of actual vapour pressure
@@ -475,7 +476,7 @@ module Evapotranspiration
     #   as they are the same as for *avp*). Can be estimated using svp_from_t()
     # @return [Float] Relative humidity (%)
     def self.rh_from_avp_svp(avp, svp)
-      return 100.0 * avp / svp
+      return 100.0 * avp.to_f / svp.to_f
     end
 
     # Calculate solar declination from day of the year.
@@ -486,7 +487,7 @@ module Evapotranspiration
     # @return [Float] solar declination (radians)
     def self.sol_dec(day_of_year)
       Validation.check_doy(day_of_year)
-      return 0.409 * Math.sin(((2.0 * Math::PI / 365.0) * day_of_year - 1.39))
+      return 0.409 * Math.sin(((2.0 * Math::PI / 365.0) * day_of_year.to_f - 1.39))
     end
 
     # Calculate incoming solar (or shortwave) radiation, *Rs* (radiation hitting
@@ -515,7 +516,7 @@ module Evapotranspiration
 
       # 0.5 and 0.25 are default values of regression constants (Angstrom values)
       # recommended by FAO when calibrated values are unavailable.
-      return (0.5 * sunshine_hours / daylight_hours + 0.25) * et_rad
+      return (0.5 * sunshine_hours.to_f / daylight_hours.to_f + 0.25) * et_rad.to_f
     end
 
     # Estimate incoming solar (or shortwave) radiation, *Rs*, (radiation hitting
@@ -550,10 +551,10 @@ module Evapotranspiration
       # coastal/interior locations
       adj = coastal ? 0.19 : 0.16
 
-      sol_rad = adj * Math.sqrt(tmax - tmin) * et_rad
+      sol_rad = adj.to_f * Math.sqrt(tmax.to_f - tmin.to_f) * et_rad.to_f
 
       # The solar radiation value is constrained by the clear sky radiation
-      return [sol_rad, cs_rad].min
+      return [sol_rad.to_f, cs_rad.to_f].min
     end
 
     # Estimate incoming solar (or shortwave) radiation, *Rs* (radiation hitting
@@ -573,7 +574,7 @@ module Evapotranspiration
     #   estimated using et_rad()
     # @return [Float] Incoming solar (or shortwave) radiation (MJ m-2 day-1)
     def self.sol_rad_island(et_rad)
-      return (0.7 * et_rad) - 4.0
+      return (0.7 * et_rad.to_f) - 4.0
     end
 
     # Calculate sunset hour angle (*Ws*) from latitude and solar
@@ -591,13 +592,13 @@ module Evapotranspiration
       Validation.check_latitude_rad(latitude)
       Validation.check_sol_dec_rad(sol_dec)
 
-      cos_sha = -Math.tan(latitude) * Math.tan(sol_dec)
+      cos_sha = -Math.tan(latitude.to_f) * Math.tan(sol_dec.to_f)
       # If tmp is >= 1 there is no sunset, i.e. 24 hours of daylight
       # If tmp is <= 1 there is no sunrise, i.e. 24 hours of darkness
       # See http://www.itacanet.org/the-sun-as-a-source-of-energy/
       # part-3-calculating-solar-angles/
       # Domain of acos is -1 <= x <= 1 radians (this is not mentioned in FAO-56!)
-      return Math.acos([[cos_sha, -1.0].max, 1.0].min)
+      return Math.acos([[cos_sha.to_f, -1.0].max, 1.0].min)
     end
 
     # Estimate saturation vapour pressure (*es*) from air temperature.
@@ -607,7 +608,7 @@ module Evapotranspiration
     # @param t [Float] Temperature (deg C)
     # @return [Float] Saturation vapour pressure (kPa)
     def self.svp_from_t(t)
-      return 0.6108 * Math.exp((17.27 * t) / (t + 237.3))
+      return 0.6108 * Math.exp((17.27 * t.to_f) / (t.to_f + 237.3))
     end
 
     # Convert wind speed measured at different heights above the soil
@@ -620,7 +621,7 @@ module Evapotranspiration
     # @param z [Float] Height of wind measurement above ground surface (m)
     # @return [Float] Wind speed at 2 m above the surface (m s-1)
     def self.wind_speed_2m(ws, z)
-      return ws * (4.87 / Math.log((67.8 * z) - 5.42))
+      return ws.to_f * (4.87 / Math.log((67.8 * z.to_f) - 5.42))
     end
 
   end

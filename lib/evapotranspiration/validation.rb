@@ -13,7 +13,7 @@ module Evapotranspiration
 
     # Sunset hour angle
     MINSHA_RADIANS = 0.0
-    MAXSHA_RADIANS = Conversion.deg_to_rad(180)
+    MAXSHA_RADIANS = Conversion.deg_to_rad(180.0)
 
     # Check that *hours* is in the range 1 to 24
     def self.check_day_hours(hours, arg_name)
