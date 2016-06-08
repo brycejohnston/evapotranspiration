@@ -311,13 +311,13 @@ module Evapotranspiration
       return (svp_from_t(tmin) + svp_from_t(tmax)) / 2.0
     end
 
-    # Estimate monthly soil heat flux (Gmonth) [MJ m-2 day-1] from the mean
-    # air temperature of the previous and current month, assuming a grass crop.
+    # Estimate monthly soil heat flux (Gmonth) from the mean air temperature of
+    # the previous and next month, assuming a grass crop.
     #
-    # Based on equation 44 in Allen et al (1998). If the air temperature of the
-    # next month is available, use monthly_soil_heat_flux() instead. The
-    # resulting heat flux can be converted to equivalent evaporation (mm day-1)
-    # using energy2evap().
+    # Based on equation 43 in Allen et al (1998). If the air temperature of the
+    # next month is not known use monthly_soil_heat_flux2 instead. The
+    # resulting heat flux can be converted to equivalent evaporation [mm day-1]
+    # using energy_2_evap.
     #
     # @param t_month_prev [Float] Mean air temperature of the previous month
     #   (deg Celsius)
@@ -332,13 +332,13 @@ module Evapotranspiration
     # the previous and next month, assuming a grass crop.
     #
     # Based on equation 44 in Allen et al (1998). If the air temperature of the
-    # next month is available, use monthly_soil_heat_flux() instead. The
+    # next month is available, use monthly_soil_heat_flux instead. The
     # resulting heat flux can be converted to equivalent evaporation [mm day-1]
-    # using ``energy2evap().
+    # using energy_2_evap.
     #
     # @param t_month_prev [Float] Mean air temperature of the previous month
     #   (deg Celsius)
-    # @param t_month_next [Float] Mean air temperature of the current month
+    # @param t_month_cur [Float] Mean air temperature of the current month
     #   (deg Celsius)
     # @return [Float] Monthly soil heat flux (Gmonth) (MJ m-2 day-1)
     def self.monthly_soil_heat_flux2(t_month_prev, t_month_cur)
