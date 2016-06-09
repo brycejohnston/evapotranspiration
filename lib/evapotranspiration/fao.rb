@@ -254,7 +254,7 @@ module Evapotranspiration
     # @return [Float] Reference evapotranspiration (ETo) from a hypothetical
     #   grass reference surface (mm day-1)
     def self.fao56_penman_monteith(net_rad, t, ws, svp, avp, delta_svp, psy, shf=0.0)
-      a1 = (0.408 * (net_rad.to_f - shf.to_f) * delta_svp.to_f / delta_svp.to_f + (psy.to_f * (1 + 0.34 * ws.to_f)))
+      a1 = (0.408 * (net_rad.to_f - shf.to_f) * delta_svp.to_f / (delta_svp.to_f + (psy.to_f * (1 + 0.34 * ws.to_f))))
       a2 = (900 * ws.to_f / t.to_f * (svp.to_f - avp.to_f) * psy.to_f / (delta_svp.to_f + (psy.to_f * (1 + 0.34 * ws.to_f))))
       return a1.to_f + a2.to_f
     end
