@@ -6,7 +6,7 @@
 [gem]: https://rubygems.org/gems/evapotranspiration
 [travis]: http://travis-ci.org/AgRuby/evapotranspiration
 
-Ruby library for calculating reference crop evapotranspiration (ETo), also referred to as potential evapotranspiration (PET), using the FAO-56 Penman-Monteith method. This is a Ruby port of [Mark Richard's PyETo Python package](https://github.com/woodcrafty/PyETo). The library provides numerous functions for estimating missing meteorological data.
+Ruby library for calculating reference crop evapotranspiration (ETo), also referred to as potential evapotranspiration (PET), using the FAO-56 Penman-Monteith method. This was originally ported into Ruby from [Mark Richard's PyETo Python package](https://github.com/woodcrafty/PyETo). The library provides numerous methods for estimating missing meteorological data.
 
 Three methods for estimating ETo/PET are implemented:
 
@@ -30,21 +30,27 @@ Or install it yourself as:
 
     $ gem install evapotranspiration
 
-## Usage
+## Information
 
-Coming soon...
+### Documentation
 
-## Development
+You can view the evapotranspiration documentation here:
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment. To install this gem onto your local machine, run `bundle exec rake install`.
+http://www.rubydoc.info/gems/evapotranspiration
+
+### Wiki
+
+The Evapotranspiration wiki provides some usage examples and "how-to" articles:
+
+https://github.com/AgRuby/evapotranspiration/wiki
 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/AgRuby/evapotranspiration.
 
-## Acknowledgments
+### Development
 
-[PyETo](https://github.com/woodcrafty/PyETo) was created by [Mark Richard](https://github.com/woodcrafty) - ported into Ruby and maintained by [Bryce Johnston](https://github.com/brycejohnston)
+After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment. To install this gem onto your local machine, run `bundle exec rake install`.
 
 ## License
 

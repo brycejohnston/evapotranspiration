@@ -4,7 +4,7 @@ module Evapotranspiration
 
   # Methods for estimating reference evapotransporation (ETo) for
   # a grass reference crop using the FAO-56 Penman-Monteith and Hargreaves
-  # equations. The library includes numerous functions for estimating missing
+  # equations. The library includes numerous methods for estimating missing
   # meteorological data.
   module FAO
     include Enumerable
@@ -53,9 +53,9 @@ module Evapotranspiration
     # Based on FAO equation 17 in Allen et al (1998).
     #
     # @param svp_tmin [Float] Saturation vapour pressure at daily minimum
-    #   temperature (kPa). Can be estimated using svp_from_t()
+    #   temperature (kPa). Can be estimated using svp_from_t
     # @param svp_tmax [Float] Saturation vapour pressure at daily maximum
-    #   temperature (kPa). Can be estimated using svp_from_t()
+    #   temperature (kPa). Can be estimated using svp_from_t
     # @param rh_min [Float] Minimum relative humidity (%)
     # @param rh_max [Float] Maximum relative humidity (%)
     # @return [Float] Actual vapour pressure (kPa)
@@ -71,7 +71,7 @@ module Evapotranspiration
     # Based on FAO equation 19 in Allen et al (1998).
     #
     # @param svp_tmin [Float] Saturation vapour pressure at daily minimum
-    #   temperature (kPa). Can be estimated using svp_from_t()
+    #   temperature (kPa). Can be estimated using svp_from_t
     # @param rh_max [Float] Maximum relative humidity (%)
     # @return [Float] Actual vapour pressure (kPa)
     def self.avp_from_rhmax(svp_tmin, rh_max)
@@ -84,9 +84,9 @@ module Evapotranspiration
     # Based on FAO equation 18 in Allen et al (1998).
     #
     # @param svp_tmin [Float] Saturation vapour pressure at daily minimum
-    #   temperature (kPa). Can be estimated using svp_from_t()
+    #   temperature (kPa). Can be estimated using svp_from_t
     # @param svp_tmax [Float] Saturation vapour pressure at daily maximum
-    #   temperature (kPa). Can be estimated using svp_from_t()
+    #   temperature (kPa). Can be estimated using svp_from_t
     # @param rh_mean [Float] Mean relative humidity (%) (average of RH min and RH max).
     # @return [Float] Actual vapour pressure (kPa)
     def self.avp_from_rhmean(svp_tmin, svp_tmax, rh_mean)
@@ -120,15 +120,15 @@ module Evapotranspiration
     # minimum temperature.
     #
     # Values for the psychrometric constant of the psychrometer (*psy_const*)
-    # can be calculated using psyc_const_of_psychrometer().
+    # can be calculated using psyc_const_of_psychrometer.
     #
     # @param twet [Float] Wet bulb temperature (deg C)
     # @param tdry [Float] Dry bulb temperature (deg C)
     # @param svp_twet [Float] Saturated vapour pressure at the wet bulb
-    #   temperature (kPa). Can be estimated using svp_from_t()
+    #   temperature (kPa). Can be estimated using svp_from_t
     # @param psy_const [Float] Psychrometric constant of the pyschrometer
-    #   (kPa deg C-1). Can be estimated using psy_const() or
-    #   psy_const_of_psychrometer()
+    #   (kPa deg C-1). Can be estimated using psy_const or
+    #   psy_const_of_psychrometer
     # @return [Float] Actual vapour pressure (kPa)
     def self.avp_from_twet_tdry(twet, tdry, svp_twet, psy_const)
       return svp_twet.to_f - (psy_const.to_f * (tdry.to_f - twet.to_f))
@@ -141,7 +141,7 @@ module Evapotranspiration
     #
     # @param altitude [Float] Elevation above sea level (m)
     # @param et_rad [Float] Extraterrestrial radiation (MJ m-2 day-1). Can be
-    #   estimated using et_rad()
+    #   estimated using et_rad
     # @return [Float] Clear sky radiation (MJ m-2 day-1)
     def self.cs_rad(altitude, et_rad)
       return (0.00002 * altitude.to_f + 0.75) * et_rad.to_f
@@ -162,7 +162,7 @@ module Evapotranspiration
     # Based on FAO equation 34 in Allen et al (1998).
     #
     # @param sha [Float] Sunset hour angle (rad). Can be calculated using
-    #   sunset_hour_angle()
+    #   sunset_hour_angle
     # @return [Float] Daylight hours
     def self.daylight_hours(sha)
       Validation.check_sunset_hour_angle_rad(sha)
@@ -194,7 +194,7 @@ module Evapotranspiration
     #
     # @param energy [Float] Energy e.g. radiation or heat flux (MJ m-2 day-1)
     # @return [Float] Equivalent evaporation (mm day-1)
-    def self.energy2evap(energy)
+    def self.energy_to_evap(energy)
       return 0.408 * energy.to_f
     end
 
@@ -212,11 +212,11 @@ module Evapotranspiration
     #
     # @param latitude [Float] Latitude (radians)
     # @param sol_dec [Float] Solar declination (radians). Can be calculated
-    #   using sol_dec()
+    #   using sol_dec
     # @param sha [Float] Sunset hour angle (radians). Can be calculated using
-    #   sunset_hour_angle()
+    #   sunset_hour_angle
     # @param ird [Float] Inverse relative distance earth-sun (dimensionless).
-    #   Can be calculated using inv_rel_dist_earth_sun()
+    #   Can be calculated using inv_rel_dist_earth_sun
     # @return [Float] Daily extraterrestrial radiation (MJ m-2 day-1)
     def self.et_rad(latitude, sol_dec, sha, ird)
       Validation.check_latitude_rad(latitude)
@@ -235,22 +235,22 @@ module Evapotranspiration
     # Based on equation 6 in Allen et al (1998).
     #
     # @param net_rad [Float] Net radiation at crop surface (MJ m-2 day-1). If
-    #   necessary this can be estimated using net_rad()
+    #   necessary this can be estimated using net_rad
     # @param t [Float] Air temperature at 2 m height (deg Kelvin)
     # @param ws [Float] Wind speed at 2 m height (m s-1). If not measured at 2m,
-    #   convert using wind_speed_at_2m()
+    #   convert using wind_speed_at_2m
     # @param svp [Float] Saturation vapour pressure (kPa). Can be estimated
-    #   using svp_from_t()
+    #   using svp_from_t
     # @param avp [Float] Actual vapour pressure (kPa). Can be estimated using a
-    #   range of functions with names beginning with 'avp_from'
+    #   range of methods with names beginning with avp_from
     # @param delta_svp [Float] Slope of saturation vapour pressure curve
-    #   (kPa degC-1). Can be estimated using delta_svp()
+    #   (kPa degC-1). Can be estimated using delta_svp
     # @param psy [Float] Psychrometric constant (kPa deg C). Can be estimatred
-    #   using psy_const_of_psychrometer() or psy_const()
+    #   using psy_const_of_psychrometer or psy_const
     # @param shf [Float] Soil heat flux (G) (MJ m-2 day-1) (default is 0.0,
     #   which is reasonable for a daily or 10-day time steps). For monthly time
-    #   steps *shf* can be estimated using monthly_soil_heat_flux() or
-    #   monthly_soil_heat_flux2()
+    #   steps *shf* can be estimated using monthly_soil_heat_flux or
+    #   monthly_soil_heat_flux2
     # @return [Float] Reference evapotranspiration (ETo) from a hypothetical
     #   grass reference surface (mm day-1)
     def self.fao56_penman_monteith(net_rad, t, ws, svp, avp, delta_svp, psy, shf=0.0)
@@ -264,7 +264,7 @@ module Evapotranspiration
     #
     # Generally, when solar radiation data, relative humidity data
     # and/or wind speed data are missing, it is better to estimate them using
-    # the functions available in this module, and then calculate ETo
+    # the methods available in this module, and then calculate ETo
     # the FAO Penman-Monteith equation. However, as an alternative, ETo can be
     # estimated using the Hargreaves ETo equation.
     #
@@ -275,7 +275,7 @@ module Evapotranspiration
     # @param tmean [Float] Mean daily temperature (deg C). If measurements not
     #   available it can be estimated as (*tmin* + *tmax*) / 2
     # @param et_rad [Float] Extraterrestrial radiation (Ra) (MJ m-2 day-1).
-    #   Can be estimated using et_rad()
+    #   Can be estimated using et_rad
     # @return [Float] Reference evapotranspiration over grass (ETo) (mm day-1)
     def self.hargreaves(tmin, tmax, tmean, et_rad)
       # Note, multiplied by 0.408 to convert extraterrestrial radiation could
@@ -318,7 +318,7 @@ module Evapotranspiration
     # Based on equation 43 in Allen et al (1998). If the air temperature of the
     # next month is not known use monthly_soil_heat_flux2 instead. The
     # resulting heat flux can be converted to equivalent evaporation [mm day-1]
-    # using energy_2_evap.
+    # using energy_to_evap.
     #
     # @param t_month_prev [Float] Mean air temperature of the previous month
     #   (deg Celsius)
@@ -335,7 +335,7 @@ module Evapotranspiration
     # Based on equation 44 in Allen et al (1998). If the air temperature of the
     # next month is available, use monthly_soil_heat_flux instead. The
     # resulting heat flux can be converted to equivalent evaporation [mm day-1]
-    # using energy_2_evap.
+    # using energy_to_evap.
     #
     # @param t_month_prev [Float] Mean air temperature of the previous month
     #   (deg Celsius)
@@ -352,13 +352,13 @@ module Evapotranspiration
     # Net incoming solar radiation is the net shortwave radiation resulting
     # from the balance between incoming and reflected solar radiation. The
     # output can be converted to equivalent evaporation [mm day-1] using
-    # energy2evap().
+    # energy_to_evap.
     #
     # Based on FAO equation 38 in Allen et al (1998).
     #
     # @param sol_rad [Float] Gross incoming solar radiation (MJ m-2 day-1).
-    #   If necessary this can be estimated using functions whose name begins
-    #   with 'sol_rad_from'
+    #   If necessary this can be estimated using methods whose name begins
+    #   with sol_rad_from
     # @param albedo [Float] Albedo of the crop as the proportion of gross
     #   incoming solar radiation that is reflected by the surface. Default value
     #   is 0.23, which is the value used by the FAO for a short grass reference
@@ -376,23 +376,23 @@ module Evapotranspiration
     # earth's surface. It is proportional to the absolute temperature of
     # the surface raised to the fourth power according to the Stefan-Boltzmann
     # law. However, water vapour, clouds, carbon dioxide and dust are absorbers
-    # and emitters of longwave radiation. This function corrects the Stefan-
+    # and emitters of longwave radiation. This method corrects the Stefan-
     # Boltzmann law for humidity (using actual vapor pressure) and cloudiness
     # (using solar radiation and clear sky radiation). The concentrations of all
     # other absorbers are assumed to be constant.
     #
-    # The output can be converted to equivalent evaporation [mm day-1] using energy2evap().
+    # The output can be converted to equivalent evaporation [mm day-1] using energy_to_evap.
     #
     # Based on FAO equation 39 in Allen et al (1998).
     #
     # @param tmin [Float] Absolute daily minimum temperature (degrees Kelvin)
     # @param albedo [Float] Absolute daily maximum temperature (degrees Kelvin)
     # @param sol_rad [Float] Solar radiation (MJ m-2 day-1). If necessary this
-    #   can be estimated using sol+rad()
+    #   can be estimated using methods with names beginning with sol_rad
     # @param cs_rad [Float] Clear sky radiation (MJ m-2 day-1). Can be estimated
-    #   using cs_rad()
+    #   using cs_rad
     # @param avp [Float] Actual vapour pressure (kPa). Can be estimated using
-    #   functions with names beginning with 'avp_from'
+    #   methods with names beginning with avp_from
     # @return [Float] Net outgoing longwave radiation (MJ m-2 day-1)
     def self.net_out_lw_rad(tmin, tmax, sol_rad, cs_rad, avp)
       tmp1 = (STEFAN_BOLTZMANN_CONSTANT * (((tmax.to_f ** 4) + (tmin.to_f ** 4)) / 2))
@@ -406,14 +406,14 @@ module Evapotranspiration
     #
     # Net radiation is the difference between the incoming net shortwave (or
     # solar) radiation and the outgoing net longwave radiation. Output can be
-    # converted to equivalent evaporation [mm day-1] using energy2evap().
+    # converted to equivalent evaporation [mm day-1] using energy_to_evap.
     #
     # Based on equation 40 in Allen et al (1998).
     #
     # @param ni_sw_rad [Float] Net incoming shortwave radiation (MJ m-2 day-1).
-    #   Can be estimated using net_in_sol_rad()
+    #   Can be estimated using net_in_sol_rad
     # @param no_lw_rad [Float] Net outgoing longwave radiation (MJ m-2 day-1).
-    #   Can be estimated using net_out_lw_rad()
+    #   Can be estimated using net_out_lw_rad
     # @return [Float] Daily net radiation (MJ m-2 day-1)
     def self.net_rad(ni_sw_rad, no_lw_rad)
       return ni_sw_rad.to_f - no_lw_rad.to_f
@@ -427,7 +427,7 @@ module Evapotranspiration
     # Based on equation 8, page 95 in Allen et al (1998).
     #
     # @param atmos_pres [Float] Atmospheric pressure (kPa). Can be estimated
-    #   using atm_pressure()
+    #   using atm_pressure
     # @return [Float] Psychrometric constant (kPa degC-1)
     def self.psy_const(atmos_pres)
       return 0.000665 * atmos_pres.to_f
@@ -446,7 +446,7 @@ module Evapotranspiration
     # @param psychrometer [Float] Integer between 1 and 3 which denotes type of
     #   psychrometer
     # @param atmos_pres [Float] Atmospheric pressure [kPa]. Can be estimated
-    #   using atm_pressure()
+    #   using atm_pressure
     # @return [Float] Psychrometric constant (kPa degC-1)
     def self.psy_const_of_psychrometer(psychrometer, atmos_pres)
       # Select coefficient based on type of ventilation of the wet bulb
@@ -470,10 +470,10 @@ module Evapotranspiration
     # See Allen et al (1998), page 67 for details.
     #
     # @param avp [Float] Actual vapour pressure (units do not matter so long as
-    #   they are the same as for *svp*). Can be estimated using functions whose
-    #   name begins with 'avp_from'
+    #   they are the same as for *svp*). Can be estimated using methods whose
+    #   name begins with avp_from
     # @param svp [Float] Saturated vapour pressure (units do not matter so long
-    #   as they are the same as for *avp*). Can be estimated using svp_from_t()
+    #   as they are the same as for *avp*). Can be estimated using svp_from_t
     # @return [Float] Relative humidity (%)
     def self.rh_from_avp_svp(avp, svp)
       return 100.0 * avp.to_f / svp.to_f
