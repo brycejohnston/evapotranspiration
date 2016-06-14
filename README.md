@@ -6,7 +6,7 @@
 [gem]: https://rubygems.org/gems/evapotranspiration
 [travis]: http://travis-ci.org/AgRuby/evapotranspiration
 
-Ruby library for calculating reference crop evapotranspiration (ETo), also referred to as potential evapotranspiration (PET), using the FAO-56 Penman-Monteith method. This was originally ported into Ruby from [Mark Richard's PyETo Python package](https://github.com/woodcrafty/PyETo). The library provides numerous methods for estimating missing meteorological data.
+Ruby library for calculating reference crop evapotranspiration (ETo), also referred to as potential evapotranspiration (PET), using the FAO-56 Penman-Monteith method. This was originally ported into Ruby from the [PyETo Python package from Mark Richards](https://github.com/woodcrafty/PyETo). The library provides numerous methods for estimating missing meteorological data.
 
 Three methods for estimating ETo/PET are implemented:
 
