@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "evapotranspiration"
   spec.version       = Evapotranspiration::VERSION
   spec.authors       = ["Bryce Johnston"]
-  spec.email         = ["johnstonbrc@gmail.com"]
+  spec.email         = ["bjohnston@cropquest.com"]
   spec.summary       = %q{Ruby library for calculating reference crop evapotranspiration (ETo)}
   spec.description   = %q{Ruby library for calculating reference crop evapotranspiration (ETo), also referred to as potential evapotranspiration (PET), using the FAO-56 Penman-Monteith method.}
   spec.homepage      = "https://github.com/brycejohnston/evapotranspiration"

@@ -1,4 +1,4 @@
-Copyright (c) 2017, Bryce Johnston
+Copyright (c) 2017, Crop Quest, Inc.
 
 All rights reserved.
 
